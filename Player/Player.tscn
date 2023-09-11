@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Camera.gd" type="Script" id=2]
@@ -8,6 +8,26 @@
 [sub_resource type="CapsuleMesh" id=1]
 
 [sub_resource type="CapsuleShape" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+albedo_color = Color( 0.835294, 0.470588, 0.0470588, 0.505882 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3( 0, 0, 1 )
+spread = 5.0
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 5.0
+
+[sub_resource type="SphereMesh" id=5]
+radius = 0.2
+height = 0.4
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -38,6 +58,16 @@ wait_time = 5.0
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Audio"]
 stream = ExtResource( 4 )
 script = ExtResource( 3 )
+
+[node name="boosterEffect" type="Spatial" parent="."]
+
+[node name="Particles" type="Particles" parent="boosterEffect"]
+material_override = SubResource( 3 )
+amount = 2048
+lifetime = 5.0
+local_coords = false
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 5 )
 
 [connection signal="camera_shake" from="." to="CamRoot/Camera" method="_on_Player_camera_shake"]
 [connection signal="camera_shake" from="." to="Audio/AudioStreamPlayer3D" method="_on_Player_camera_shake"]
