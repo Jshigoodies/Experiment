@@ -5,6 +5,7 @@ signal camera_shake
 const MOUSE_SENSITIVITY = 0.1
 
 onready var camera = $CamRoot/Camera
+onready var particleSystem = $boosterEffect/Particles
 
 var velocity = Vector3.ZERO
 var current_vel = Vector3.ZERO
@@ -60,6 +61,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("sprint"):
 		if is_boosting == false:
 			is_boosting = true
+			particleSystem.emitting = true
 			$BoostTimer.start()
 			emit_signal("camera_shake")
 	
@@ -95,3 +97,4 @@ func window_activity():
 			
 func _on_BoosterTimer_timeout():
 	is_boosting = false
+	particleSystem.emitting = false
