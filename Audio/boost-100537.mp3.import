@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/boost-100537.mp3-0f27313dfbabd97705532ba90cae4dbf.mp3str"
+
+[deps]
+
+source_file="res://Audio/boost-100537.mp3"
+dest_files=[ "res://.import/boost-100537.mp3-0f27313dfbabd97705532ba90cae4dbf.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

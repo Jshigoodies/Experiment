@@ -1,5 +1,7 @@
 extends KinematicBody
 
+signal camera_shake
+
 const MOUSE_SENSITIVITY = 0.1
 
 onready var camera = $CamRoot/Camera
@@ -59,6 +61,7 @@ func _physics_process(delta):
 		if is_boosting == false:
 			is_boosting = true
 			$BoostTimer.start()
+			emit_signal("camera_shake")
 	
 	if is_boosting:
 		speed = SPRINT_SPEED
