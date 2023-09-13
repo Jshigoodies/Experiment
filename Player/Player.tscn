@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Camera.gd" type="Script" id=2]
 [ext_resource path="res://Player/AudioStreamPlayer3D.gd" type="Script" id=3]
 [ext_resource path="res://Audio/boost-100537.mp3" type="AudioStream" id=4]
+[ext_resource path="res://Model Assets/rail gun.tscn" type="PackedScene" id=5]
+[ext_resource path="res://animations/PlayergunSway.tres" type="Animation" id=6]
 
 [sub_resource type="CapsuleMesh" id=1]
 
@@ -29,6 +31,53 @@ initial_velocity = 5.0
 radius = 0.2
 height = 0.4
 
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("../CamRoot/Camera/weapon:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1.041, -0.60443, -1.143 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "gunSwayFaster"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/path = NodePath("../CamRoot/Camera/weapon:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 1.041, -0.60443, -1.143 ), Vector3( 1.132, -0.719, -1.143 ), Vector3( 1.217, -0.592, -1.143 ), Vector3( 1.132, -0.719, -1.143 ), Vector3( 1.041, -0.60443, -1.143 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "reset gun position"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("../CamRoot/Camera/weapon:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1.041, -0.60443, -1.143 ) ]
+}
+
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
 
@@ -45,13 +94,32 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.23243, 0 )
 
 [node name="Camera" type="Camera" parent="CamRoot"]
+cull_mask = 1048573
 far = 2846.1
 script = ExtResource( 2 )
 
+[node name="weapon" type="Spatial" parent="CamRoot/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.897, 1.041, -0.60443, -1.143 )
+
+[node name="rail gun" parent="CamRoot/Camera/weapon" instance=ExtResource( 5 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="CamRoot/Camera"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Viewport" type="Viewport" parent="CamRoot/Camera/ViewportContainer"]
+size = Vector2( 512, 300 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="gunCam" type="Camera" parent="CamRoot/Camera/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.232, 0 )
+cull_mask = 2
+
 [node name="BoostTimer" type="Timer" parent="."]
 wait_time = 5.0
-
-[node name="weapon" type="Spatial" parent="."]
 
 [node name="Audio" type="Spatial" parent="."]
 
@@ -69,6 +137,16 @@ lifetime = 5.0
 local_coords = false
 process_material = SubResource( 4 )
 draw_pass_1 = SubResource( 5 )
+
+[node name="animations" type="Spatial" parent="."]
+
+[node name="gunSway" type="AnimationPlayer" parent="animations"]
+reset_on_save = false
+anims/PlayergunSway = ExtResource( 6 )
+anims/RESET = SubResource( 6 )
+anims/gunSway = ExtResource( 6 )
+anims/gunSwayFaster = SubResource( 8 )
+"anims/reset gun position" = SubResource( 7 )
 
 [connection signal="camera_shake" from="." to="CamRoot/Camera" method="_on_Player_camera_shake"]
 [connection signal="camera_shake" from="." to="Audio/AudioStreamPlayer3D" method="_on_Player_camera_shake"]

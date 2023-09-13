@@ -2,10 +2,11 @@ extends KinematicBody
 
 signal camera_shake
 
-const MOUSE_SENSITIVITY = 0.1
+const MOUSE_SENSITIVITY = 0.2
 
 onready var camera = $CamRoot/Camera
 onready var particleSystem = $boosterEffect/Particles
+onready var gunCamera = $CamRoot/Camera/ViewportContainer/Viewport/gunCam
 
 var velocity = Vector3.ZERO
 var current_vel = Vector3.ZERO
@@ -31,6 +32,7 @@ func _ready():
 
 func _process(delta):
 	window_activity()
+	gunCamera.global_transform = camera.global_transform
 	
 
 func _physics_process(delta):
@@ -70,6 +72,10 @@ func _physics_process(delta):
 	else:
 		speed = SPEED
 	
+	if Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("foward") or Input.is_action_pressed("backward"):
+		$animations/gunSway.play("gunSway")
+			
+	
 	
 	var target_vel = dir * speed
 	
@@ -79,6 +85,7 @@ func _physics_process(delta):
 	
 	velocity.x = current_vel.x
 	velocity.z = current_vel.z
+	
 	
 	velocity = move_and_slide(velocity, Vector3.UP, true, 4, deg2rad(45))
 

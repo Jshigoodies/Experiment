@@ -2,7 +2,7 @@ extends Camera
 
 var is_shaking = false
 var shake_duration = 0.3
-var shake_intensity = 0.5
+var shake_intensity = 0.15
 var original_position
 
 func _start_screen_shake():
