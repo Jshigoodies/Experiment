@@ -15,7 +15,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, -1.43 ) ]
+"values": [ Vector3( 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=1]
@@ -36,7 +36,6 @@ tracks/0/keys = {
 }
 
 [node name="rail gun" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.43 )
 script = ExtResource( 2 )
 
 [node name="gun" parent="." index="0"]

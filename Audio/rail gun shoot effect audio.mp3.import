@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/rail gun shoot effect audio.mp3-8e99710732d007cd5836d5fed08d9382.mp3str"
+
+[deps]
+
+source_file="res://Audio/rail gun shoot effect audio.mp3"
+dest_files=[ "res://.import/rail gun shoot effect audio.mp3-8e99710732d007cd5836d5fed08d9382.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
