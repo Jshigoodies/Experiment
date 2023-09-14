@@ -1,10 +1,20 @@
 extends Spatial
 
 var bullet_scene = preload("res://Model Assets/bullet.tscn")
+var is_charged= false
+
+func _ready():
+	$ChargeTimer.connect("timeout", self, "charge_timer_timeout")
+
 
 func _input(event):
-	if event.is_action_released("right_mouse_button"):
+	if event.is_action_pressed("right_mouse_button"):
+		$ChargeTimer.start()
+	if event.is_action_released("right_mouse_button") and is_charged:
+		is_charged = false
 		shoot()
+		$AnimationPlayer.play("Shoot")
+		
 		
 		
 
@@ -19,4 +29,5 @@ func shoot():
 	get_tree().get_root().add_child(bullet)
 	bullet.set_global_transform($GunMuzzle.get_global_transform())
 	
-	
+func charge_timer_timeout():
+	is_charged = true

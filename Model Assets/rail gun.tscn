@@ -1,13 +1,42 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Model Assets/rail gun.glb" type="PackedScene" id=1]
 [ext_resource path="res://Model Assets/rail gun.gd" type="Script" id=2]
 
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -1.43 ) ]
+}
+
 [sub_resource type="Animation" id=1]
 resource_name = "Shoot"
+length = 0.5
 step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 1.43 ), Vector3( 0, 0, 0 ) ]
+}
 
 [node name="rail gun" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.43 )
 script = ExtResource( 2 )
 
 [node name="gun" parent="." index="0"]
@@ -32,4 +61,8 @@ layers = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0231659, 1.16897 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+anims/RESET = SubResource( 2 )
 anims/Shoot = SubResource( 1 )
+
+[node name="ChargeTimer" type="Timer" parent="." index="8"]
+wait_time = 3.0
