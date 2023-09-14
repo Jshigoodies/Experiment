@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Model Assets/rail gun.glb" type="PackedScene" id=1]
+[ext_resource path="res://Model Assets/rail gun.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Shoot"
+step = 0.01
 
 [node name="rail gun" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
 
 [node name="gun" parent="." index="0"]
 layers = 2
@@ -21,3 +27,9 @@ layers = 2
 
 [node name="Cube" parent="." index="5"]
 layers = 2
+
+[node name="GunMuzzle" type="Spatial" parent="." index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0231659, 1.16897 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+anims/Shoot = SubResource( 1 )

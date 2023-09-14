@@ -72,7 +72,7 @@ func _physics_process(delta):
 	else:
 		speed = SPEED
 	
-	if Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("foward") or Input.is_action_pressed("backward"):
+	if Input.is_action_pressed("left") or Input.is_action_pressed("right") or Input.is_action_pressed("foward") or Input.is_action_pressed("backward") or Input.is_action_just_pressed("jump"):
 		$animations/gunSway.play("gunSway")
 			
 	
