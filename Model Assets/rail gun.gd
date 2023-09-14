@@ -7,13 +7,18 @@ func _ready():
 
 
 func _input(event):
-	if event.is_action_pressed("right_mouse_button") and !is_charged:
+	if event.is_action_pressed("right_mouse_button") and !is_charged: # CHARGING
 		$ChargeTimer.start()
-	if event.is_action_released("right_mouse_button") and is_charged:
+		$AnimationPlayer.play("charge_indicator")
+		$AudioStreamPlayer3D.play()
+	if event.is_action_released("right_mouse_button") and is_charged: # FIRE
 		is_charged = false
 		shoot()
+		$AnimationPlayer.play("Shoot") 
+	if event.is_action_released("right_mouse_button") and !is_charged: # let go too early
 		$AnimationPlayer.play("Shoot")
-		
+		$ChargeTimer.stop()
+		$AudioStreamPlayer3D.stop()
 		
 		
 

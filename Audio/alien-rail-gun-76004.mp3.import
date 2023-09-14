@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/alien-rail-gun-76004.mp3-7122a9672eeccf3e0c025e37ad0b815c.mp3str"
+
+[deps]
+
+source_file="res://Audio/alien-rail-gun-76004.mp3"
+dest_files=[ "res://.import/alien-rail-gun-76004.mp3-7122a9672eeccf3e0c025e37ad0b815c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
