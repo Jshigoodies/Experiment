@@ -1,8 +1,11 @@
 extends RigidBody
 
 
-var speed = 100.0  # Adjust the speed of the bullet as needed
+var bullet_speed = 50.0  # Adjust the bullet's speed as needed.
 
 func _ready():
-	# Set the initial velocity to move the bullet forward along its local Z-axis
-	linear_velocity = Vector3(0, 0, -speed)
+	pass  # Optional setup code here.
+
+func set_direction(direction):
+	# Set the bullet's initial linear velocity in the given direction.
+	linear_velocity = direction.normalized() * bullet_speed
