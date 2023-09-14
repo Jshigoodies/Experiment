@@ -9,7 +9,6 @@ func _input(event):
 func shoot():
 	var bullet_instance = bullet_scene.instance()
 	var bullet = bullet_instance
-	bullet.global_transform.origin = $GunMuzzle.global_transform.origin
-	bullet.global_transform.basis = $GunMuzzle.global_transform.basis
 	
-	get_tree().current_scene.add_child(bullet)
+	get_tree().get_root().add_child(bullet)
+	bullet.set_global_transform($GunMuzzle.get_global_transform())
