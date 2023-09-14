@@ -62,3 +62,7 @@ lifetime = 0.5
 local_coords = false
 process_material = SubResource( 4 )
 draw_pass_1 = SubResource( 6 )
+
+[node name="LifetimeBullet" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
