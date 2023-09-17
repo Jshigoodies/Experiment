@@ -8,6 +8,7 @@ onready var camera = $CamRoot/Camera
 onready var particleSystem = $boosterEffect/Particles
 onready var gunCamera = $CamRoot/Camera/ViewportContainer/Viewport/gunCam
 
+
 var velocity = Vector3.ZERO
 var current_vel = Vector3.ZERO
 var dir = Vector3.ZERO
