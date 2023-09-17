@@ -58,6 +58,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and jump_counter < 1:
 		jump_counter += 1
 		velocity.y = JUMP_SPEED
+		$Audio/jump.play()
 		
 	
 	if Input.is_action_just_pressed("sprint"):

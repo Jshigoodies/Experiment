@@ -14,7 +14,8 @@ func _input(event):
 	if event.is_action_released("right_mouse_button") and is_charged: # FIRE
 		is_charged = false
 		shoot()
-		$AnimationPlayer.play("Shoot") 
+		$AnimationPlayer.play("Shoot")
+		$bullet_sound.play()
 	if event.is_action_released("right_mouse_button") and !is_charged: # let go too early
 		$AnimationPlayer.play("Shoot")
 		$ChargeTimer.stop()
