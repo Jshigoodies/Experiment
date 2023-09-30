@@ -23,7 +23,6 @@ func _on_Area_body_entered(body):
 	if body.name:
 		if not "Player" in body.name:
 			if not "bullet" in body.name:
-				print("I hit something that's not a player or bullet: " + body.name)
 				queue_free()
 				var explosion_instance = explosion.instance()
 				get_tree().get_root().add_child(explosion_instance)

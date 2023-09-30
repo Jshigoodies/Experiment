@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Model Assets/Turret.tscn" type="PackedScene" id=2]
 
 [sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 1, 0, 0.890196, 1 )
@@ -81,3 +82,6 @@ shape = SubResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+
+[node name="Turret" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.941759, 0, 0.33629, 0, 1, 0, -0.33629, 0, -0.941759, -11.4036, 7.38243, -3.10865 )
