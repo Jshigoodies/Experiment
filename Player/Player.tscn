@@ -79,7 +79,7 @@ tracks/0/keys = {
 "values": [ Vector3( 1.041, -0.60443, -1.143 ) ]
 }
 
-[node name="Player" type="KinematicBody"]
+[node name="Player" type="KinematicBody" groups=["MC"]]
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]

@@ -83,5 +83,10 @@ shape = SubResource( 5 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
-[node name="Turret" parent="." instance=ExtResource( 2 )]
-transform = Transform( -0.941759, 0, 0.33629, 0, 1, 0, -0.33629, 0, -0.941759, -11.4036, 7.38243, -3.10865 )
+[node name="enimies" type="Spatial" parent="."]
+
+[node name="Turret" parent="enimies" instance=ExtResource( 2 )]
+transform = Transform( -0.466618, 0, 0.179632, 0, 0.5, 0, -0.179632, 0, -0.466618, -11.4036, 7.38243, -12.6422 )
+
+[node name="Turret2" parent="enimies" instance=ExtResource( 2 )]
+transform = Transform( -0.0776655, 0, -0.493931, 0, 0.5, 0, 0.493931, 0, -0.0776655, 26.3076, 1.72063, 10.3667 )

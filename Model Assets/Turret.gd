@@ -1,27 +1,55 @@
 extends Spatial
 
+var bullet_scene = preload("res://Model Assets/bullet.tscn")
+
 enum {
 	IDLE,
 	ALERT,
-	STUNNED
+	STUNNED #Dies
 }
+
+var target
+
+const TURN_SPEED = 9.75
 
 var state = IDLE
 onready var raycast = $RayCast
+onready var eyes = $Eyes
+onready var shoottimer = $ShootTimer
 
 func _ready():
 	pass
 
 func _process(delta):
-	if raycast.is_colliding():
-		state = ALERT
-	else:
-		state = IDLE
-		
 	match state:
 		IDLE:
-			print("IDLE")
+			pass
 		ALERT:
-			print("ALERT")
+			eyes.look_at(target.global_transform.origin, Vector3.UP)
+			rotate_y(deg2rad(eyes.rotation.y * TURN_SPEED))
 		STUNNED:
-			print("STUNNED")
+			pass
+
+
+func _on_SightRange_body_entered(body):
+	if body.is_in_group("MC"):
+		state = ALERT
+		target = body
+		shoottimer.start()
+
+
+func _on_SightRange_body_exited(body):
+	if body.is_in_group("MC"):
+		state = IDLE
+		shoottimer.stop()
+	
+
+
+func _on_ShootTimer_timeout():
+	var bullet_instance = bullet_scene.instance()
+	var direction = $Muzzle.global_transform.basis.z * -1
+	bullet_instance.set_direction(direction)
+	var bullet = bullet_instance
+	
+	get_tree().get_root().add_child(bullet)
+	bullet.set_global_transform($Muzzle.get_global_transform())
