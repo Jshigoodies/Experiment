@@ -62,9 +62,9 @@ draw_pass_1 = SubResource( 6 )
 wait_time = 10.0
 autostart = true
 
-[node name="Area" type="Area" parent="."]
+[node name="BulletArea" type="Area" parent="."]
 
-[node name="CollisionShape" type="CollisionShape" parent="Area"]
+[node name="CollisionShape" type="CollisionShape" parent="BulletArea"]
 shape = SubResource( 7 )
 
-[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_entered" from="BulletArea" to="." method="_on_BulletArea_body_entered"]

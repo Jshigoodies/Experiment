@@ -1,6 +1,6 @@
 extends Spatial
 
-var bullet_scene = preload("res://Model Assets/bullet.tscn")
+var bullet_scene = preload("res://Model Assets/TurretBullet.tscn")
 
 enum {
 	IDLE,
@@ -53,3 +53,11 @@ func _on_ShootTimer_timeout():
 	
 	get_tree().get_root().add_child(bullet)
 	bullet.set_global_transform($Muzzle.get_global_transform())
+	
+	
+	
+
+
+func _on_collide_area_entered(area):
+	if area.name == "Explosion" || area.name == "BulletArea":
+		queue_free()

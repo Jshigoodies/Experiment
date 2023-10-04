@@ -1,21 +1,19 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Model Assets/Explosion.gd" type="Script" id=1]
-[ext_resource path="res://Audio/explosion-121425.mp3" type="AudioStream" id=2]
+[ext_resource path="res://Model Assets/TurretBulletExplosion.gd" type="Script" id=1]
+[ext_resource path="res://Audio/LaserBlastQuick PE1095107.mp3" type="AudioStream" id=2]
 
-[sub_resource type="SphereShape" id=3]
-
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=3]
 flags_transparent = true
-albedo_color = Color( 0.384314, 1, 0, 0.501961 )
-metallic = 1.0
-metallic_specular = 1.0
-roughness = 0.6
+albedo_color = Color( 0.827451, 0.0235294, 0.0235294, 0.443137 )
+roughness = 0.0
 
-[sub_resource type="SphereMesh" id=5]
-material = SubResource( 7 )
+[sub_resource type="SphereMesh" id=1]
+material = SubResource( 3 )
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="SphereShape" id=2]
+
+[sub_resource type="Animation" id=4]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
@@ -30,8 +28,8 @@ tracks/0/keys = {
 "values": [ Vector3( 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "explosion"
+[sub_resource type="Animation" id=5]
+resource_name = "explode"
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
@@ -42,25 +40,24 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 1, 1, 1 ), Vector3( 5, 5, 5 ) ]
+"values": [ Vector3( 1, 1, 1 ), Vector3( 4, 4, 4 ) ]
 }
 
-[node name="Explosion" type="Area"]
+[node name="TurretBulletExplosion" type="Area" groups=["Enemy"]]
 script = ExtResource( 1 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 3 )
-
 [node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 5 )
+mesh = SubResource( 1 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["Enemy"]]
-anims/RESET = SubResource( 8 )
-anims/explosion = SubResource( 6 )
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
+anims/explode = SubResource( 5 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 2 )
-unit_db = 20.0
 autoplay = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

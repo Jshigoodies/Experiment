@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Model Assets/TurretBullet.gd" type="Script" id=1]
+[ext_resource path="res://Audio/alien-rail-gun-76004.mp3" type="AudioStream" id=2]
 
 [sub_resource type="BoxShape" id=4]
 
@@ -10,32 +11,40 @@
 albedo_color = Color( 1, 0, 0, 1 )
 metallic = 1.0
 roughness = 0.0
+emission_enabled = true
+emission = Color( 0.92549, 0.0941176, 0.0941176, 1 )
+emission_energy = 3.87
+emission_operator = 0
+emission_on_uv2 = false
 
 [sub_resource type="BoxShape" id=3]
 
-[sub_resource type="ParticlesMaterial" id=5]
+[sub_resource type="ParticlesMaterial" id=9]
+emission_shape = 1
+emission_sphere_radius = 1.0
 direction = Vector3( 0, 0, 0 )
 gravity = Vector3( 0, 0, 0 )
 
-[sub_resource type="SpatialMaterial" id=6]
-albedo_color = Color( 1, 0.364706, 0.364706, 0.494118 )
-metallic_specular = 1.0
-roughness = 0.42
+[sub_resource type="SpatialMaterial" id=10]
+albedo_color = Color( 0.788235, 0.0666667, 0.0666667, 1 )
+roughness = 0.0
+emission_enabled = true
+emission = Color( 0.858824, 0.105882, 0.105882, 1 )
+emission_energy = 1.7
+emission_operator = 0
+emission_on_uv2 = false
 
-[sub_resource type="CubeMesh" id=7]
-material = SubResource( 6 )
-size = Vector3( 0.265, 0.009, 0.3 )
+[sub_resource type="CubeMesh" id=11]
+material = SubResource( 10 )
+size = Vector3( 0.2, 0.2, 0.2 )
 
-[node name="TurretBullet" type="RigidBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.177573 )
+[node name="TurretBullet" type="RigidBody" groups=["Enemy"]]
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.157, 0, 0, 0, 0.05, 0, 0, 0, 0.141, 0, 0, -0.0439029 )
 shape = SubResource( 4 )
 
 [node name="body" type="Spatial" parent="."]
-transform = Transform( 0.157, 0, 0, 0, 0.05, 0, 0, 0, 0.141, 0, 0, -0.0439029 )
 
 [node name="MeshInstance" type="MeshInstance" parent="body"]
 mesh = SubResource( 8 )
@@ -47,9 +56,25 @@ material/0 = SubResource( 2 )
 [node name="CollisionShape" type="CollisionShape" parent="body/Area"]
 shape = SubResource( 3 )
 
-[node name="Particles" type="Particles" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.22357 )
+[node name="Particles" type="Particles" parent="body"]
 amount = 32
 local_coords = false
-process_material = SubResource( 5 )
-draw_pass_1 = SubResource( 7 )
+process_material = SubResource( 9 )
+draw_pass_1 = SubResource( 11 )
+
+[node name="Particles2" type="Particles" parent="body"]
+amount = 32
+local_coords = false
+process_material = SubResource( 9 )
+draw_pass_1 = SubResource( 11 )
+
+[node name="LifeTime" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 2 )
+unit_db = 10.0
+autoplay = true
+
+[connection signal="body_entered" from="body/Area" to="." method="_on_Area_body_entered"]

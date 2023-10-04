@@ -18,8 +18,7 @@ func _lifetime_end():
 	
 	
 
-
-func _on_Area_body_entered(body):
+func _on_BulletArea_body_entered(body):
 	if body.name:
 		if not "Player" in body.name:
 			if not "bullet" in body.name:
