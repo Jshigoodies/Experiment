@@ -8,7 +8,6 @@ onready var camera = $CamRoot/Camera
 onready var particleSystem = $boosterEffect/Particles
 onready var gunCamera = $CamRoot/Camera/ViewportContainer/Viewport/gunCam
 
-
 var velocity = Vector3.ZERO
 var current_vel = Vector3.ZERO
 var dir = Vector3.ZERO
@@ -27,9 +26,16 @@ const AIR_ACCEL = 9.0
 var is_boosting = false
 var is_cooldown = false
 
+
+var max_health = 100
+var current_health = max_health
+onready var health_display = $CamRoot/Camera/ViewportContainer/Health/HealthBar
+
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$BoostTimer.connect("timeout", self, "_on_BoosterTimer_timeout")
+	health_display.value = max_health
 
 func _process(delta):
 	window_activity()
@@ -107,3 +113,26 @@ func window_activity():
 func _on_BoosterTimer_timeout():
 	is_boosting = false
 	particleSystem.emitting = false
+
+
+func take_damage(damage):
+	current_health -= damage
+	if current_health <= 0:
+		current_health = 0
+		# You can handle character death here
+	health_display.value = current_health
+
+func heal(healing_amount):
+	current_health += healing_amount
+	if current_health > max_health:
+		current_health = max_health
+	health_display.value = current_health
+
+
+
+
+func _on_hit_area_entered(area):
+	if area.name == "Area" || area.name == "TurretBulletExplosion":
+		take_damage(1)
+		# print("Health is now at")
+		# print(current_health)

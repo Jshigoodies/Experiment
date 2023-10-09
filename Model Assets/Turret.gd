@@ -1,6 +1,7 @@
 extends Spatial
 
 var bullet_scene = preload("res://Model Assets/TurretBullet.tscn")
+var death = preload("res://Model Assets/TurretDeath.tscn")
 
 enum {
 	IDLE,
@@ -61,3 +62,6 @@ func _on_ShootTimer_timeout():
 func _on_collide_area_entered(area):
 	if area.name == "Explosion" || area.name == "BulletArea":
 		queue_free()
+		var death_instance = death.instance()
+		get_tree().get_root().add_child(death_instance)
+		death_instance.set_global_transform(self.get_global_transform())

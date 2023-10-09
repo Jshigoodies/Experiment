@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Camera.gd" type="Script" id=2]
@@ -7,10 +7,25 @@
 [ext_resource path="res://Model Assets/rail gun.tscn" type="PackedScene" id=5]
 [ext_resource path="res://animations/PlayergunSway.tres" type="Animation" id=6]
 [ext_resource path="res://Audio/jump audio.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Shader/new_theme.tres" type="Theme" id=8]
 
 [sub_resource type="CapsuleMesh" id=1]
 
-[sub_resource type="CapsuleShape" id=2]
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0.0901961, 0.74902, 0.0745098, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 1, 1, 1, 0 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.341176, 0.596078, 0.662745, 0.254902 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="SpatialMaterial" id=3]
 flags_transparent = true
@@ -79,6 +94,12 @@ tracks/0/keys = {
 "values": [ Vector3( 1.041, -0.60443, -1.143 ) ]
 }
 
+[sub_resource type="CapsuleShape" id=9]
+radius = 1.1
+height = 1.1
+
+[sub_resource type="CapsuleShape" id=2]
+
 [node name="Player" type="KinematicBody" groups=["MC"]]
 script = ExtResource( 1 )
 
@@ -86,10 +107,6 @@ script = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
 visible = false
 mesh = SubResource( 1 )
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
-shape = SubResource( 2 )
 
 [node name="CamRoot" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.23243, 0 )
@@ -118,6 +135,20 @@ render_target_update_mode = 3
 [node name="gunCam" type="Camera" parent="CamRoot/Camera/ViewportContainer/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.232, 0 )
 cull_mask = 2
+
+[node name="Health" type="Control" parent="CamRoot/Camera/ViewportContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="HealthBar" type="ProgressBar" parent="CamRoot/Camera/ViewportContainer/Health"]
+margin_left = 16.0
+margin_top = 6.0
+margin_right = 190.0
+margin_bottom = 26.0
+theme = ExtResource( 8 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 11 )
+percent_visible = false
 
 [node name="BoostTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -152,5 +183,16 @@ anims/gunSway = ExtResource( 6 )
 anims/gunSwayFaster = SubResource( 8 )
 "anims/reset gun position" = SubResource( 7 )
 
+[node name="hit" type="Area" parent="."]
+
+[node name="hitArea" type="CollisionShape" parent="hit"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
+shape = SubResource( 9 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.5, 0 )
+shape = SubResource( 2 )
+
 [connection signal="camera_shake" from="." to="CamRoot/Camera" method="_on_Player_camera_shake"]
 [connection signal="camera_shake" from="." to="Audio/AudioStreamPlayer3D" method="_on_Player_camera_shake"]
+[connection signal="area_entered" from="hit" to="." method="_on_hit_area_entered"]
