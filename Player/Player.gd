@@ -31,7 +31,6 @@ var max_health = 100
 var current_health = max_health
 onready var health_display = $CamRoot/Camera/ViewportContainer/Health/HealthBar
 
-
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$BoostTimer.connect("timeout", self, "_on_BoosterTimer_timeout")
@@ -136,3 +135,10 @@ func _on_hit_area_entered(area):
 		take_damage(1)
 		# print("Health is now at")
 		# print(current_health)
+			
+
+func get_health():
+	return current_health
+
+func get_max_health():
+	return max_health

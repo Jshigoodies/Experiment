@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Model Assets/Turret.tscn" type="PackedScene" id=2]
-[ext_resource path="res://healthpack.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Model Assets/healthpack.tscn" type="PackedScene" id=3]
 
 [sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 1, 0, 0.890196, 1 )
@@ -82,7 +82,7 @@ mesh = SubResource( 4 )
 shape = SubResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.99322, 1, 5.47457 )
 
 [node name="enimies" type="Spatial" parent="."]
 
@@ -101,4 +101,13 @@ transform = Transform( 0.498028, 0, 0.0443689, 0, 0.5, 0, -0.0443689, 0, 0.49802
 [node name="healthpacks" type="Spatial" parent="."]
 
 [node name="healthpack" parent="healthpacks" instance=ExtResource( 3 )]
-transform = Transform( 0.875886, -0.482518, 0, 0.482518, 0.875886, 0, 0, 0, 1, 6.33898, 3.63235, 0.93129 )
+transform = Transform( 0.741952, -0.496886, 0.450123, 0.670453, 0.549877, -0.498126, 0, 0.671371, 0.741121, 6.79196, 3.65719, 0.776044 )
+
+[node name="healthpack2" parent="healthpacks" instance=ExtResource( 3 )]
+transform = Transform( -0.946644, -0.23885, 0.216371, 0.322282, -0.701578, 0.635549, 0, 0.671371, 0.741121, 6.79196, 3.65719, 1.93843 )
+
+[node name="healthpack3" parent="healthpacks" instance=ExtResource( 3 )]
+transform = Transform( -0.946644, -0.23885, 0.216371, 0.248531, -0.113603, 0.961939, -0.205179, 0.964388, 0.166903, 6.79196, 3.65719, 0.2357 )
+
+[node name="healthpack4" parent="healthpacks" instance=ExtResource( 3 )]
+transform = Transform( -0.913989, -0.402286, 0.052812, -0.24825, 0.657422, 0.711455, -0.320928, 0.637152, -0.700744, 6.71152, 4.91182, 1.73516 )

@@ -23,7 +23,7 @@ material = SubResource( 5 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "BigToSmall"
-length = 3.0
+length = 2.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("body/Particles:draw_pass_1:radius")
 tracks/0/interp = 1
@@ -31,7 +31,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 3 ),
+"times": PoolRealArray( 0, 2.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 1.0, 0.1 ]
@@ -43,7 +43,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 3 ),
+"times": PoolRealArray( 0, 2.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 2.0, 0.2 ]
@@ -55,7 +55,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 2.9 ),
+"times": PoolRealArray( 0, 2.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -128,3 +128,5 @@ draw_pass_1 = SubResource( 2 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/BigToSmall = SubResource( 3 )
 anims/RESET = SubResource( 4 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
